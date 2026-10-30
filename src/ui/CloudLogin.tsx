@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { LuCloud, LuLogIn } from 'react-icons/lu';
 import { app, cloudSignIn, cloudSignUp, setCloudConfig } from '../store/app';
 import { useCore } from '../store/hooks';
-import { validateConfig } from '../store/supabase';
+import { CloudError, validateConfig } from '../store/supabase';
 import { Button, Field, Note, toast } from './kit';
 
 export function CloudConfigForm({ onDone }: { onDone?: () => void }) {
@@ -52,7 +52,10 @@ export function CloudLogin({ onDone }: { onDone?: () => void }) {
         if (r === 'confirm') setInfo('Мы отправили письмо для подтверждения. Откройте его на этом устройстве, затем войдите с паролем.');
         else { toast('Аккаунт создан, данные синхронизируются.', { tone: 'ok' }); onDone?.(); }
       }
-    } catch (x) { setErr((x as Error).message); }
+    } catch (x) {
+      const e = x as CloudError;
+      setErr(e.code === 'network' ? 'Нет связи с облаком. Проверьте интернет и попробуйте ещё раз.' : e.message);
+    }
     finally { setBusy(false); }
   };
 

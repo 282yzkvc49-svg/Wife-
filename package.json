@@ -1,0 +1,28 @@
+{
+  "name": "berezhno",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Бережно — персональное wellness-приложение для мягкой подготовки к беременности (PWA)",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --watch & node scripts/serve.mjs dist 5173",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --import tsx --test tests/unit/*.test.ts",
+    "test:sql": "bash tests/sql/run.sh",
+    "test:e2e": "node build.mjs && node --import tsx tests/e2e/run.mjs && node tests/e2e/routes.mjs && node tests/e2e/offline.mjs",
+    "test:all": "npm run typecheck && npm test && npm run test:sql && npm run test:e2e"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-icons": "5.7.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "playwright": "1.63.0",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.12",
+    "typescript": "6.0.3"
+  }
+}

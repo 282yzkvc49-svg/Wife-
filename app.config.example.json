@@ -1,0 +1,4 @@
+{
+  "supabaseUrl": "https://xxxx.supabase.co",
+  "supabaseAnonKey": "sb_publishable_… (или legacy anon public) — только публичный ключ, не secret/service_role"
+}

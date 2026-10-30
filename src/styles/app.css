@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* Палитра ТЗ: мятный, пудровый розовый, нежный сиреневый, тёплый бежевый, молочный фон, контрастный нейтральный текст.
+   У каждого цвета три ступени: поверхность (фон карточек/чипов), насыщенный (обводки, заливки прогресса), ink (текст и иконки, контраст ≥ 4.5:1). */
+@theme {
+  --color-milk: #f8f5f4;
+  --color-card: #ffffff;
+  --color-ink: #2d2833;
+  --color-ink-soft: #625c69;
+  --color-line: #e8e1df;
+  --color-mint: #d6ece3;
+  --color-mint-strong: #93c9b4;
+  --color-mint-ink: #2a6c58;
+  --color-powder: #f7e0e3;
+  --color-powder-strong: #e7b1ba;
+  --color-powder-ink: #9a4357;
+  --color-lilac: #e8e2f4;
+  --color-lilac-strong: #bfb0e2;
+  --color-lilac-ink: #5f4b96;
+  --color-beige: #f2e9dd;
+  --color-beige-strong: #dbc6aa;
+  --color-beige-ink: #715637;
+  --color-amber: #fbecd3;
+  --color-amber-ink: #85560f;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+
+  --radius-petal: 1.75rem;
+  --radius-soft: 1.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-milk: #1c1920;
+    --color-card: #27232c;
+    --color-ink: #f2edf3;
+    --color-ink-soft: #b8b0be;
+    --color-line: #3a3441;
+    --color-mint: #213b35;
+    --color-mint-strong: #3e7a68;
+    --color-mint-ink: #9edbc4;
+    --color-powder: #42262d;
+    --color-powder-strong: #8b4e5c;
+    --color-powder-ink: #f1b9c4;
+    --color-lilac: #302944;
+    --color-lilac-strong: #685997;
+    --color-lilac-ink: #cbbff1;
+    --color-beige: #373027;
+    --color-beige-strong: #73614a;
+    --color-beige-ink: #e6d2b5;
+    --color-amber: #3b2f1c;
+    --color-amber-ink: #f0c98a;
+  }
+}
+
+html { -webkit-text-size-adjust: 100%; background: var(--color-milk); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-milk);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  -webkit-font-smoothing: antialiased;
+}
+input, select, textarea, button { font: inherit; color: inherit; }
+input, select, textarea { font-size: 16px; }
+:focus-visible { outline: 2px solid var(--color-lilac-ink); outline-offset: 2px; }
+h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ——— Каркас ——— */
+.app-shell { min-height: 100dvh; }
+.app-header { padding-top: max(env(safe-area-inset-top), 0.5rem); }
+.app-main { padding-bottom: calc(5.5rem + env(safe-area-inset-bottom)); padding-left: max(env(safe-area-inset-left), 1rem); padding-right: max(env(safe-area-inset-right), 1rem); }
+.bottom-nav { padding-bottom: max(env(safe-area-inset-bottom), 0.4rem); }
+@media (min-width: 1024px) {
+  .app-main { padding-bottom: 3rem; padding-left: 2rem; padding-right: 2rem; }
+}
+
+/* ——— Поверхности ——— */
+.surface { background: var(--color-card); border: 1px solid var(--color-line); border-radius: var(--radius-soft); }
+.surface-petal { border-radius: var(--radius-petal); }
+.tint-mint { background: var(--color-mint); border-color: transparent; }
+.tint-powder { background: var(--color-powder); border-color: transparent; }
+.tint-lilac { background: var(--color-lilac); border-color: transparent; }
+.tint-beige { background: var(--color-beige); border-color: transparent; }
+.tint-amber { background: var(--color-amber); border-color: transparent; }
+
+/* ——— Кнопки ——— */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  min-height: 44px; padding: 0.55rem 1rem; border-radius: 999px;
+  font-weight: 600; font-size: 0.95rem; line-height: 1.2;
+  border: 1px solid transparent; cursor: pointer; user-select: none;
+  transition: background-color .15s ease, transform .1s ease, border-color .15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-primary { background: var(--color-ink); color: var(--color-milk); }
+.btn-mint { background: var(--color-mint); color: var(--color-mint-ink); }
+.btn-lilac { background: var(--color-lilac); color: var(--color-lilac-ink); }
+.btn-powder { background: var(--color-powder); color: var(--color-powder-ink); }
+.btn-beige { background: var(--color-beige); color: var(--color-beige-ink); }
+.btn-ghost { background: transparent; color: var(--color-ink); border-color: var(--color-line); }
+.btn-quiet { background: transparent; color: var(--color-ink-soft); padding-left: .6rem; padding-right: .6rem; }
+.btn-danger { background: var(--color-powder); color: var(--color-powder-ink); border-color: var(--color-powder-strong); }
+.btn-sm { min-height: 36px; padding: 0.35rem 0.8rem; font-size: 0.875rem; }
+.btn-icon { width: 44px; padding: 0; }
+
+/* ——— Чипы ——— */
+.chip {
+  display: inline-flex; align-items: center; gap: .35rem; min-height: 36px; padding: .3rem .8rem;
+  border-radius: 999px; border: 1px solid var(--color-line); background: var(--color-card);
+  font-size: .875rem; font-weight: 500; cursor: pointer; color: var(--color-ink);
+}
+.chip[aria-pressed="true"], .chip[aria-checked="true"], .chip.is-on { background: var(--color-lilac); border-color: var(--color-lilac-strong); color: var(--color-lilac-ink); }
+
+/* ——— Поля ——— */
+.field { display: grid; gap: .35rem; }
+.field > span { font-size: .875rem; color: var(--color-ink-soft); font-weight: 500; }
+.input {
+  width: 100%; min-height: 44px; padding: .55rem .8rem; border-radius: .9rem;
+  border: 1px solid var(--color-line); background: var(--color-card); color: var(--color-ink);
+}
+textarea.input { min-height: 88px; resize: vertical; }
+.input:focus { border-color: var(--color-lilac-strong); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-lilac) 70%, transparent); }
+
+/* ——— Переключатель ——— */
+.switch { position: relative; width: 50px; height: 30px; flex: none; border-radius: 999px; background: var(--color-line); border: none; cursor: pointer; transition: background .2s; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--color-card); box-shadow: 0 1px 3px rgba(40, 30, 50, .25); transition: transform .2s; }
+.switch[aria-checked="true"] { background: var(--color-mint-ink); }
+.switch[aria-checked="true"]::after { transform: translateX(20px); }
+
+/* ——— Нижний лист (диалог) ——— */
+dialog.sheet {
+  border: none; padding: 0; margin: auto auto 0; width: 100%; max-width: 640px;
+  max-height: 92dvh; border-radius: 1.75rem 1.75rem 0 0; background: var(--color-milk); color: var(--color-ink);
+}
+dialog.sheet::backdrop { background: rgba(28, 22, 34, .38); }
+dialog.sheet[open] { animation: sheet-in .22s ease-out; }
+@media (min-width: 768px) {
+  dialog.sheet { margin: auto; border-radius: 1.75rem; max-height: 86dvh; }
+}
+@keyframes sheet-in { from { transform: translateY(24px); opacity: .4; } to { transform: none; opacity: 1; } }
+.sheet-body { padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom)); overflow-y: auto; max-height: inherit; }
+
+/* ——— Прочее ——— */
+.toast-wrap { position: fixed; left: 0; right: 0; bottom: calc(5.5rem + env(safe-area-inset-bottom)); display: grid; justify-items: center; gap: .5rem; z-index: 60; pointer-events: none; padding: 0 1rem; }
+@media (min-width: 1024px) { .toast-wrap { bottom: 1.5rem; } }
+.toast { pointer-events: auto; max-width: 560px; width: 100%; }
+.scroll-x { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.scroll-x::-webkit-scrollbar { display: none; }
+.measure { max-width: 68ch; }
+.tabular { font-variant-numeric: tabular-nums; }
+.done-strike { text-decoration: line-through; text-decoration-color: var(--color-ink-soft); }
+.prose-soft p { margin: 0 0 .6rem; }
+.prose-soft ul { margin: 0 0 .6rem; padding-left: 1.1rem; list-style: disc; }
+.prose-soft li { margin: .2rem 0; }
+
+/* Элементы сетки не должны растягивать колонку длинным содержимым (узкие экраны 320 px) */
+.grid > * { min-width: 0; }

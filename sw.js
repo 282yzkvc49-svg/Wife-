@@ -1,6 +1,6 @@
 // Service worker «Бережно». Версия кеша и список файлов подставляются при сборке.
-const CACHE = 'berezhno-1.0.0-7db149b9f0';
-const ASSETS = ["./","index.html","app.js?v=e037308477","app.css?v=383c3e26b1","apple-touch-icon.png","favicon-32.png","icon-192.png","icon-512.png","icon-maskable-512.png","manifest.webmanifest"];
+const CACHE = 'berezhno-1.0.0-cc843ddd2f';
+const ASSETS = ["./","index.html","app.js?v=34995dfb98","app.css?v=383c3e26b1","apple-touch-icon.png","favicon-32.png","icon-192.png","icon-512.png","icon-maskable-512.png","manifest.webmanifest"];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));
